@@ -1,63 +1,76 @@
-# MySQL - Sistema Cadastro de Alunos e Cursos | 20 Análises
+# 🎓 MySQL - Sistema de Cadastro de Alunos e Cursos | 20 Análises
 
-> Projeto de Análise de Dados com MySQL - Do básico ao Pleno - Portfólio para vaga de Analista de Dados Jr
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Concluído-success?style=for-the-badge)
 
-**Autor:** Juliano Berdet | Pelotas/RS | Analista de Dados Jr
+> Projeto de Banco de Dados relacional para portfólio de Análise de Dados, com modelagem, povoamento e 20 exercícios de SQL organizados por nível.
 
-### Sobre o Projeto
-Banco `cadastro` com 2 tabelas reais:
-- **alunos:** id, nome, nascimento, sexo, peso, altura, nacionalidade, profissao, cursopreferido
-- **cursos:** idcurso, nome, descricao, carga, totaulas, ano
+**Repositório:** `julianoberdet/mysql-cadastro-alunos-cursos`
 
-Base com brasileiros e estrangeiros, cursos de 2014 a 2016, cargas de 8h a 40h+, e vários NULL no cursopreferido - cenário perfeito para treinar limpeza de dados.
+### 📌 Sobre o Projeto
+Banco `cadastro` com duas tabelas principais (`gafanhotos` / `alunos` e `cursos`) modelado para praticar desde `SELECT` básico até `JOIN`, `GROUP BY`, `SUBQUERIES` e análise de dados reais. Ideal para quem está migrando para Data Analytics.
 
-### Estrutura
-- `banco/cadastro.sql` -> Criação do banco e tabelas
-- `queries/analise_dados.sql` -> 20 exercícios comentados
+- **Origem dos dados:** Cursos de MySQL do Curso em Vídeo, com extensão para N:N
+- **Registros:** 50+ alunos com atributos físicos e preferências
+- **Objetivo:** Simular um cenário real com dados sujos e órfãos
 
-### Tecnologias
-MySQL | MySQL Workbench | VS Code | Git & GitHub
+### 🗺️ Diagrama ER
+![Diagrama ER](diagrama-er.png)
 
-### Os 20 Exercícios - Organizados por Nível
+**Estrutura:**
+- `alunos` (id, nome, sexo, nascimento, nacionalidade, curso_preferido, peso, altura)
+- `cursos` (idcurso, nome, carga, totaulas, ano)
+- `alunos_cursos` (tabela de junção para matrícula N:N)
 
-#### NÍVEL 1 - BÁSICO - Sem JOIN
-- **01:** Listar todos os alunos
-- **02:** Brasileiros com altura > 1.80m | `WHERE + ORDER BY`
-- **03:** Profissões terminadas em eiro/eira | `LIKE '%eiro'`
-- **04:** Top 10 mais altos | `ORDER BY + LIMIT`
-- **05:** Nascidos depois de 2000 | `WHERE com data`
+### 💡 Os 20 Exercícios - Organizados por Nível
 
-#### NÍVEL 2 - MÉDIO - Agregação
-- **06:** Total por sexo | `GROUP BY`
-- **07:** Total por nacionalidade | `GROUP BY + COUNT + ORDER BY DESC`
-- **08:** Profissões distintas | `DISTINCT`
-- **09:** Média de peso e altura por sexo | `AVG + GROUP BY`
-- **10:** Média de peso por nacionalidade
-- **11:** Profissões com 3 ou mais alunos | `GROUP BY + HAVING`
-- **12:** Total por sexo - o clássico de prova técnica
+**🟢 NÍVEL 1: Básico (SELECT, WHERE)**
+1.  Listar todos os alunos
+2.  Filtrar por sexo e nacionalidade
+3.  Buscar por curso preferido com LIKE
 
-#### NÍVEL 3 - DIFÍCIL / JÚNIOR / PLENO - JOINs
-- **13:** Quem prefere cursos de 2016 | `INNER JOIN + WHERE ano = 2016`
-- **14:** Cursos com carga > 30h | `JOIN + WHERE carga`
-- **15:** TODOS os alunos mesmo sem curso | `LEFT JOIN`
-- **16:** Limpeza - Quem NÃO tem curso | `LEFT JOIN + WHERE c.idcurso IS NULL` - **Esse cai em entrevista!**
-- **17:** Top 5 cursos mais populares | `JOIN + COUNT + ORDER BY DESC + LIMIT 5`
-- **18:** Cursos com média de peso > 70kg | `JOIN + GROUP BY + HAVING AVG`
-- **19:** Programadores + nome do curso | `JOIN + LIKE`
-- **20:** TOP 3 cursos de 2016 mais pesados | `JOIN + WHERE + GROUP BY + HAVING + AVG + ORDER BY + LIMIT` - **Relatório do chefe**
+**🟡 NÍVEL 2: Filtros Avançados e Ordenação**
+4.  Alunos nascidos entre 1990 e 2000
+5.  TOP 10 alunos mais pesados / mais leves
+6.  Ordenar por altura e peso
 
-### Insights Encontrados
-- Mais de 50 registros órfãos sem curso preferido - tratados com LEFT JOIN + IS NULL
-- Ranking dos cursos mais procurados
-- Distribuição por sexo, nacionalidade e profissão
-- Cursos com maior carga vs. perfil de peso dos alunos
+**🟠 NÍVEL 3: Agregação**
+7.  COUNT - Total de alunos por sexo
+8.  AVG, MAX, MIN - Média de peso e altura por sexo
+9.  GROUP BY - Cursos mais procurados
 
-### Como Rodar
-```sql
--- 1. Crie o banco
+**🔴 NÍVEL 4: JOIN e Relações**
+10.  INNER JOIN - Alunos com curso preferido existente
+11.  LEFT JOIN - Identificar registros órfãos (sem curso preferido)
+12.  JOIN com N:N - Alunos matriculados e seus cursos
+
+**⚫ NÍVEL 5: Subqueries e Casos Reais**
+13.  Alunos com peso acima da média
+14.  Curso com maior carga horária
+15.  Alunos que não escolheram curso
+16.  Cursos sem alunos interessados
+17.  Relatório de chute de dados - LEFT JOIN + IS NULL
+18.  Ranking de cursos por procura
+19.  Programadores + nome do curso + carga
+20.  TOP 3 cursos de 2016 mais pesados + insights
+
+### 🔍 Insights Encontrados
+- Mais de 50 registros órfãos sem curso preferido - trabalhado com `LEFT JOIN + IS NULL`
+- Ranking dos 3 cursos mais procurados
+- Cursos com maior carga vs. perfil de peso dos alunos - ideal para storytelling
+
+### 🚀 Como Rodar
+```bash
+# 1. Clone
+git clone https://github.com/julianoberdet/mysql-cadastro-alunos-cursos.git
+
+# 2. No MySQL Workbench / Terminal
 CREATE DATABASE cadastro;
 USE cadastro;
+SOURCE banco/cadastro.sql;
+SOURCE banco/dados.sql;
 
--- 2. Rode o banco/cadastro.sql
-
--- 3. Rode queries/analise_dados.sql do 01 ao 20
+# 3. Rode as análises
+SOURCE analises/20-exercicios.sql
